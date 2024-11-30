@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Category>
+@* @if (TempData["success"] != null)
+{
+    <h3>@TempData["success"]</h3>
+} *@
+@* better to add partial view *@
+<partial name="_Notifycation" />
+<div class="container">
+
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary">Categories list</h2>
+        </div>
+        <div class="col-6 text-end">
+            @*can remove asp-controller, because the url now have controller Category *@
+            <a asp-controller="Category" asp-action="Create">
+                <i class="bi bi-plus-circle"></i>Create new category
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Category name
+                </th>
+                <th>
+                    Display order
+                </th>
+            </tr>
+        </thead>
+       <tbody>
+            @foreach (Category obj in Model.OrderByDescending(u=>u.DisplayOrder))
+            {
+                <tr>
+                    <td>@obj.Name</td>
+                    <td>@obj.DisplayOrder</td>
+                    <td>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Category" asp-action="Edit" asp-route-ID="@obj.CategoryId" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-controller="Category" asp-action="Delete" asp-route-ID="@obj.CategoryId" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                   @*  <td>
+                        <div class="w-75 btn-group" role="group">
+
+                            
+                        </div>
+                    </td> *@
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
